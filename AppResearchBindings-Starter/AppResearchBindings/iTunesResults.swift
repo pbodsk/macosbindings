@@ -48,8 +48,8 @@ class SearchResult: NSObject, Codable {
   }
   @objc dynamic var artworkURL: URL?
  // @objc dynamic var artworkImage: NSImage?
-  @objc dynamic var screenShotURLStrings: [String] = []
-  //@objc dynamic var screenShots: [NSImage] = []
+  @objc dynamic var screenShotURLs: [URL] = []
+  @objc dynamic var screenShots: [NSImage] = []
   @objc dynamic var userRatingCount = 0
   @objc dynamic var userRatingCountForCurrentVersion = 0
   @objc dynamic var primaryGenre = ""
@@ -70,7 +70,7 @@ class SearchResult: NSObject, Codable {
     case price
     case releaseDateString = "releaseDate"
     case artworkURL = "artworkUrl100"
-    case screenShotURLStrings = "screenshotUrls"
+    case screenShotURLs = "screenshotUrls"
     case userRatingCount
     case userRatingCountForCurrentVersion
     case primaryGenre = "primaryGenreName"
@@ -87,13 +87,15 @@ class SearchResult: NSObject, Codable {
     price = try values.decode(Double.self, forKey: .price)
     releaseDateString = try values.decode(String.self, forKey: .releaseDateString)
     artworkURL = try values.decodeIfPresent(URL.self, forKey: .artworkURL) ?? URL(string: "")
-    screenShotURLStrings = try values.decode([String].self, forKey: .screenShotURLStrings)
+    screenShotURLs = try values.decode([URL].self, forKey: .screenShotURLs)
     userRatingCount = try values.decodeIfPresent(Int.self, forKey: .userRatingCount) ?? 0
     userRatingCountForCurrentVersion = try values.decode(Int.self, forKey: .userRatingCountForCurrentVersion)
     primaryGenre = try values.decode(String.self, forKey: .primaryGenre)
     fileSizeInBytesString = try values.decode(String.self, forKey: .fileSizeInBytesString)
   }
-  
+}
+
+extension SearchResult {
   func loadIcon() {
     guard let artworkURL = artworkURL else { return }
     
@@ -107,11 +109,29 @@ class SearchResult: NSObject, Codable {
       })
     })
   }
+  
+  func loadScreenShots() {
+    if screenShots.count > 0 {
+      return
+    }
+    
+    for screenshotURL in screenShotURLs {
+      iTunesRequestManager.downloadImage(screenshotURL, completionHandler: { (image, error) -> Void in
+        DispatchQueue.main.async(execute: {
+          guard let image = image , error == nil else {
+            return;
+          }
+          
+          self.willChangeValue(forKey: "screenShots")
+          self.screenShots.append(image)
+          self.didChangeValue(forKey: "screenShots")
+        })
+        
+      })
+    }
+  }
 }
 
-extension SearchResult {
-  
-}
 
 class OldResult : NSObject {
   @objc dynamic var rank = 0

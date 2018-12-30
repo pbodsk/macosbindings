@@ -29,20 +29,26 @@ class ViewController: NSViewController {
     @IBOutlet weak var searchTextField: NSTextField!
     
     @IBOutlet var searchResultsController: NSArrayController!
+  
+    @objc dynamic var loading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        let itemPrototype = storyboard?.instantiateController(withIdentifier: "collectionViewItem") as! NSCollectionViewItem
+        collectionView.itemPrototype = itemPrototype
     }
     
     @IBAction func searchClicked(_ sender: AnyObject) {
         guard !searchTextField.stringValue.isEmpty else { return }
         
         guard let resultsNumber = Int(numberResultsComboBox.stringValue) else { return }
-        
+        loading = true
         iTunesRequestManager.getSearchResults(searchTextField.stringValue,
                                               results: resultsNumber,
                                               langString: "en_US") { [weak self] result in
                                                 guard let strongSelf = self else { return }
+                                                strongSelf.loading = false
                                                 DispatchQueue.main.async {
                                                   switch result {
                                                   case .success(data: let results):
@@ -52,13 +58,7 @@ class ViewController: NSViewController {
                                                         element.rank = index + 1
                                                         return element
                                                       })
-
-                                                    
                                                     strongSelf.searchResultsController.content = rankedResults
-                                                    
-                                                    
-                                                    
-                                                    
                                                   case .failure(let error):
                                                     print("failure: \(error)")
                                                   }
@@ -70,6 +70,7 @@ class ViewController: NSViewController {
   func tableViewSelectionDidChange(_ notification: NSNotification) {
     guard let searchResult = searchResultsController.selectedObjects.first as? SearchResult else { return }
     searchResult.loadIcon()
+    searchResult.loadScreenShots()
   }
 }
 

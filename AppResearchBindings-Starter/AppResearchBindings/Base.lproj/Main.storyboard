@@ -707,6 +707,14 @@
                             </button>
                             <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Yzb-b6-hBG" userLabel="Search Progress Indicator (Bind)">
                                 <rect key="frame" x="251" y="661" width="16" height="16"/>
+                                <connections>
+                                    <binding destination="XfG-lQ-9wD" name="animate" keyPath="self.loading" id="543-Ig-oIz"/>
+                                    <binding destination="XfG-lQ-9wD" name="hidden" keyPath="self.loading" id="39c-ZP-yBa">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </progressIndicator>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ggm-Nc-Y1j">
                                 <rect key="frame" x="188" y="628" width="120" height="17"/>
@@ -754,7 +762,13 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.trackName" id="e6D-Dq-wSv"/>
+                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.trackName" id="VRl-NY-lFM">
+                                                <dictionary key="options">
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rzb-MG-oLb" userLabel="Artist Label (Bind)">
@@ -768,7 +782,13 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.artistName" id="f2S-N6-ATd"/>
+                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.artistName" id="8qw-Qv-1CQ">
+                                                <dictionary key="options">
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </textField>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YYS-RB-ZAH" userLabel="Icon Image View (Bind)">
@@ -795,7 +815,11 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.price" id="W2w-Ne-zNS"/>
+                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.price" id="Agw-Ix-Vf5">
+                                                <dictionary key="options">
+                                                    <string key="NSNoSelectionPlaceholder">--</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Icl-TS-3UY">
@@ -823,7 +847,11 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.primaryGenre" id="7no-lT-kDK"/>
+                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.primaryGenre" id="PVV-5g-vYq">
+                                                <dictionary key="options">
+                                                    <string key="NSNoSelectionPlaceholder">--</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </textField>
                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LYj-sy-9sv" userLabel="Description Text View">
@@ -892,7 +920,11 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.fileSizeInBytes" id="far-ci-TkJ"/>
+                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.fileSizeInBytes" id="adw-Wa-GaD">
+                                                <dictionary key="options">
+                                                    <string key="NSNoSelectionPlaceholder">0</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </textField>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xoy-bX-D9V">
@@ -905,6 +937,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="641" height="348"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <connections>
+                                                        <binding destination="C9H-K0-rAV" name="content" keyPath="selection.screenShots" id="5Lk-aN-XTD"/>
+                                                    </connections>
                                                 </collectionView>
                                             </subviews>
                                         </clipView>
@@ -930,7 +965,11 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.releaseDate" id="xsU-B0-OiX"/>
+                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.releaseDate" id="juP-5p-19z">
+                                                <dictionary key="options">
+                                                    <string key="NSNoSelectionPlaceholder">--</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ELI-dy-TsR">
@@ -957,7 +996,11 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.userRatingCount" id="nGd-CZ-tHI"/>
+                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.userRatingCount" id="NtY-pz-vdE">
+                                                <dictionary key="options">
+                                                    <string key="NSNoSelectionPlaceholder">--</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HiS-nX-eOn">
@@ -984,7 +1027,11 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.averageUserRating" id="OL6-zY-6XE"/>
+                                            <binding destination="C9H-K0-rAV" name="value" keyPath="selection.averageUserRating" id="z2t-g3-xQZ">
+                                                <dictionary key="options">
+                                                    <string key="NSNoSelectionPlaceholder">--</string>
+                                                </dictionary>
+                                            </binding>
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zgz-rq-Xt6">
@@ -1258,6 +1305,9 @@
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="60f-fe-5rR" userLabel="Screen Shot Image View (Bind)">
                                 <rect key="frame" x="0.0" y="0.0" width="260" height="460"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="FmS-nC-FS9"/>
+                                <connections>
+                                    <binding destination="HmQ-q4-sOx" name="value" keyPath="representedObject" id="hB6-ii-mcU"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <constraints>

@@ -58,20 +58,6 @@ struct iTunesRequestManager {
         } else {
           completionHandler(.success(data:itunesResults.results))
         }
-        
-        
-        
-/*
-        guard let itunesData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : AnyObject] else {
-          completionHandler([], nil)
-          return
-        }
-        if let results = itunesData["results"] as? [[String : AnyObject]] {
-          completionHandler(results, nil)
-        } else {
-         
-        }
- */
       } catch {
         completionHandler(.failure(error))
       }
@@ -80,14 +66,15 @@ struct iTunesRequestManager {
     task.resume()
   }
   
-  static func downloadImage(_ imageURL: URL, completionHandler: @escaping (NSImage?, NSError?) -> Void) {
+  static func downloadImage(_ imageURL: URL, completionHandler: @escaping (Result<NSImage?>) -> Void) {
     let task = URLSession.shared.dataTask(with: imageURL, completionHandler: { (data, response, error) -> Void in
       guard let data = data , error == nil else {
-        completionHandler(nil, error as NSError?)
+        completionHandler(.failure(error!))
         return
       }
       let image = NSImage(data: data)
-      completionHandler(image, nil)
+      completionHandler(.success(data: image))
+
     })
     task.resume()
   }

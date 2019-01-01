@@ -1023,7 +1023,7 @@ IA
                                             <rect key="frame" x="0.0" y="0.0" width="643" height="135"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="bKy-qG-EVP">
+                                                <textView editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsDocumentBackgroundColorChange="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" id="bKy-qG-EVP">
                                                     <rect key="frame" x="0.0" y="0.0" width="643" height="135"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1036,9 +1036,6 @@ IA
                                                     </connections>
                                                 </textView>
                                             </subviews>
-                                            <connections>
-                                                <binding destination="C9H-K0-rAV" name="hidden" keyPath="selection.itemDescription" id="jqR-ap-4nI"/>
-                                            </connections>
                                         </clipView>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="135" id="e7Z-P9-JVh"/>
